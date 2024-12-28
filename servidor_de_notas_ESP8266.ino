@@ -2,8 +2,8 @@
 #include <ESP8266WebServer.h>
 #include <FS.h> // Para usar SPIFFS
 
-#define WIFI_SSID "tu_SSID"
-#define WIFI_PASSWORD "tu_contraseña"
+#define WIFI_SSID "ppp"
+#define WIFI_PASSWORD "ooo"
 
 ESP8266WebServer server(80);
 
@@ -11,6 +11,14 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.println("Conectando a WiFi...");
+
+  // Configurar IP estática
+  IPAddress local_IP(192, 168, 0, 198);
+  IPAddress gateway(192, 168, 0, 1); // Cambia según tu red
+  IPAddress subnet(255, 255, 255, 0); // Máscara de subred típica
+  if (!WiFi.config(local_IP, gateway, subnet)) {
+    Serial.println("Error al configurar IP estática");
+  }
 
   // Conectar a WiFi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
